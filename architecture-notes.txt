@@ -1,0 +1,30 @@
+Authentication:
+JWT-based authentication is used. Token is verified in middleware.
+
+RBAC:
+Teacher can upload content.
+Principal can approve/reject content.
+
+Upload:
+Handled using multer. Files stored locally.
+
+Approval Workflow:
+Content lifecycle:
+pending → approved / rejected
+
+Scheduling Logic:
+Content is filtered based on:
+
+* approved status
+* current time between start_time and end_time
+
+Rotation:
+Active content is determined by:
+index = (time difference / duration) % total content
+
+Database:
+Users and Content tables are linked using foreign keys.
+
+Scalability:
+Redis can be used for caching.
+S3 can be used for file storage.
