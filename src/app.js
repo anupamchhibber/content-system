@@ -5,18 +5,38 @@ const app = express();
 
 app.use(express.json());
 
-// Test route
 app.get('/', (req, res) => {
-  res.send('Backend is running');
+  res.send('Backend Running');
 });
 
-// DB sync
+// AUTH (temporary for now)
+app.post('/auth/register', (req, res) => {
+  res.json({ message: "Register OK" });
+});
+
+app.post('/auth/login', (req, res) => {
+  res.json({ message: "Login OK" });
+});
+
+// CONTENT
+app.post('/content/upload', (req, res) => {
+  res.json({ message: "Upload OK" });
+});
+
+app.get('/content', (req, res) => {
+  res.json({ message: "Get Content OK" });
+});
+
+// ADMIN
+app.post('/content/approve/:id', (req, res) => {
+  res.json({ message: "Approved" });
+});
+
+// DB SYNC
 sequelize.sync({ alter: true })
-  .then(() => console.log(' Tables created'))
-  .catch(err => console.log(' DB Error:', err));
+  .then(() => console.log("DB Connected"))
+  .catch(err => console.log(err));
 
-const PORT = 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(3000, () => {
+  console.log("Server running on 3000");
 });
