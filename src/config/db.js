@@ -1,18 +1,4 @@
-
-/*const { Sequelize } = require('sequelize');
-
-const sequelize = new Sequelize(
-  'content_db',   // database name
-  'root',         // MySQL username
-  'Anchh123@', //  put your actual MySQL password here
-  {
-    host: 'localhost',
-    dialect: 'mysql',
-    logging: false
-  }
-);
-
-module.exports = sequelize;*/
+/*
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
@@ -23,6 +9,21 @@ const sequelize = new Sequelize(
   {
     host: process.env.DB_HOST,
     dialect: 'mysql'
+  }
+);
+
+module.exports = sequelize;*/
+const { Sequelize } = require('sequelize');
+
+const sequelize = new Sequelize(
+  process.env.MYSQLDATABASE,
+  process.env.MYSQLUSER,
+  process.env.MYSQLPASSWORD,
+  {
+    host: process.env.MYSQLHOST,
+    port: process.env.MYSQLPORT,
+    dialect: 'mysql',
+    logging: false
   }
 );
 
