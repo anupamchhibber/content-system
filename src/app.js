@@ -58,16 +58,19 @@ app.get('/', (req, res) => {
   res.send('Backend Running');
 });
 
-// DB AUTH CHECK
+//  START SERVER ONLY AFTER DB CONNECTS
 sequelize.authenticate()
-  .then(() => console.log(" DB Authentication Success"))
-  .catch(err => console.error(" Auth Error:", err));
+  .then(() => {
+    console.log(" DB Authentication Success");
+    return sequelize.sync();
+  })
+  .then(() => {
+    console.log(" DB Connected Successfully");
 
-// DB SYNC
-sequelize.sync({ alter: true })
-  .then(() => console.log(" DB Connected Successfully"))
-  .catch(err => console.error(" DB Error:", err));
-
-app.listen(3000, () => {
-  console.log("Server running on 3000");
-});
+    app.listen(process.env.PORT || 3000, () => {
+      console.log(` Server running`);
+    });
+  })
+  .catch(err => {
+    console.error(" DB Error:", err);
+  });
